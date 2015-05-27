@@ -2,6 +2,10 @@
 
 /* Originally obtained from http://bluerobot.com/layouts
  * Copying most of the design from catb.org*/
+
+.gray-highlight{
+    background-color: #fff;
+}
 .last-modified{
 	font-size: medium;
    
