@@ -40,6 +40,8 @@
         our selves. I also believe that he is the way the truth and the life and no one will see the Father if it is
         not through him.
     </p>
+	
+	
 </div><!-- end Content -->
 
 <!-- END content -->

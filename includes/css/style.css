@@ -4,7 +4,10 @@
  * Copying most of the design from catb.org*/
 
 .gray-highlight{
-    background-color: #fff;
+
+    padding: 5px;
+    
+    color: green;
 }
 .last-modified{
 	font-size: medium;
