@@ -3,11 +3,13 @@
 /* Originally obtained from http://bluerobot.com/layouts
  * Copying most of the design from catb.org*/
 
-.gray-highlight{
-
-    padding: 5px;
+.term-cmds{
+    background: black;
+    font-family: 'Liberation Sans';
+    color: white;
+    margin: 0;
+    padding: 1px;
     
-    color: green;
 }
 .last-modified{
 	font-size: medium;

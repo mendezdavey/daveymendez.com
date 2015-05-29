@@ -28,29 +28,38 @@
 	<p>a) Download: <a href="http://www.ubuntu.com/download/server">Ubuntu Server</a></p>
 	<p>Ubuntu is a Linux operating system that is developed by canonical.</p>
 	<p>b) Burn the iso img file to a empty cd or dvd.</p>
-	<p>
-	Here is: <a href="http://www.ubuntu.com/download/server/install-ubuntu-server">Installing Ubuntu for General Use</a> instructions.
-	</p>
+  <p>Still stuck! Then:</p>
 	<p>Search for creating a linux live cd in youtube for a video tutorial.</p>
-	<h2>Step 2: Install Ubuntu Server 14.04 to your Computer.</h2>
+	
+  <h2>Step 2: Install Ubuntu Server 14.04 to your server computer.</h2>
 	<p>Insert The Ubuntu cd you created earlier and install the Ubuntu operating system.</p>
-	<p>
-	Here is a detailed guide: <a href="http://www.servermom.org/basic-ubuntu-setup-before-building-a-working-server/85/">http://www.servermom.org/basic-ubuntu-setup-before-building-a-working-server/85/</a>
+  <p>Here is a overview on how to install Ubuntu Server: <a 
+    href="http://www.ubuntu.com/download/server/install-ubuntu-server">
+    Installing Ubuntu for General Use</a> instructions.
 	</p>
+  
+  <p>
+	<!--Here is a detailed guide: <a 
+  href="http://www.servermom.org/basic-ubuntu-setup-before-building-a-working-server/85/"
+  >http://www.servermom.org/basic-ubuntu-setup-before-building-a-working-server/85/</a>
+  -->
+  </p>
 
-	<h2>Step 3: Install SSH</h2>
-	<p>Downloading openssh-server will allow you to remotely control your computer
+	<h2>Step 3: Install "Open SSH Server" to your server.</h2>
+	<p>Downloading openssh-server will allow you to remotely control your server
 	by connecting to it via ssh. For example, I connect to my home server by typing its
 	ip address in a terminal(linux or mac) or using putty(windows). More on this in step 4.</p>
 	<p>a) Run the command below to install openssh-server:</p>
-	<span class="gray-highlight"><p>sudo apt-get install openssh-server</p></span>
+  <br/>
+	<p class="term-cmds">sudo apt-get install openssh-server</p><br/>
 	<p>b) You can make aditional changes by editing the ssh config file:</p>
-	<span class="gray-highlight"><p>sudo nano /etc/ssh/sshd_config</p></span>
-	<p>c) Restart openssh-server:</p>
-	<span class="gray-highlight"><p>sudo /etc/init.d/ssh restart</p></span>
+	<p class="term-cmds">sudo nano /etc/ssh/sshd_config</p><br/>
+	<p>c) Restart openssh-server:</p><br/>
+	<p class="term-cmds">sudo /etc/init.d/ssh restart</p>
+  <br/>
 	<p>All done!</p>
 	
-	<h2>Step 4: Remotely connect to your computer via terminal(linux or mac) 
+	<h2>Step 4: Remotely connect to your sever from another computer, via terminal(linux or mac) 
 	 or <a href="http://putty.org">putty</a>(windows).</h2>
 	<p>Linux computers and mac's have built in tools to connect via ssh. if you are using
 	 a microsoft windows machine download putty. To download putty search for it 
