@@ -3,11 +3,10 @@
 	define("TITLE", "Web Server Tutorial | David Mendez");
 	include('includes/php/header.php'); 
 ?>
-
 <!-- Write content here -->
-
 <div id="Content">
 <h1 class="heading">Web Server tutorial</h1>
+	<img src="images/server_medium.jpg" alt="Server with a lot of cables sticking out of it.">
 
 	<p>
 	So you want to host your own site? Good for you. I will show you how to setup up your own web server
@@ -50,33 +49,124 @@
 	by connecting to it via ssh. For example, I connect to my home server by typing its
 	ip address in a terminal(linux or mac) or using putty(windows). More on this in step 4.</p>
 	<p>a) Run the command below to install openssh-server:</p>
-  <br/>
-	<p class="term-cmds">sudo apt-get install openssh-server</p><br/>
+	<pre>
+	<code>sudo apt-get install openssh-server</code>
+	</pre>
 	<p>b) You can make aditional changes by editing the ssh config file:</p>
-	<p class="term-cmds">sudo nano /etc/ssh/sshd_config</p><br/>
-	<p>c) Restart openssh-server:</p><br/>
-	<p class="term-cmds">sudo /etc/init.d/ssh restart</p>
-  <br/>
+	<pre>
+	<code>sudo nano /etc/ssh/sshd_config</code>
+	</pre>
+	<p>c) Restart openssh-server:</p>
+	<pre>
+	<code>sudo /etc/init.d/ssh restart</code>
+	</pre>
 	<p>All done!</p>
 	
-	<h2>Step 4: Remotely connect to your sever from another computer, via terminal(linux or mac) 
+	<h2>Step 4: Remotely connect to your server from another computer, via terminal(linux or mac) 
 	 or <a href="http://putty.org">putty</a>(windows).</h2>
 	<p>Linux computers and mac's have built in tools to connect via ssh. if you are using
 	 a microsoft windows machine download putty. To download putty search for it 
 	on google.com</p>
-	<p>a) Start by typing ifconfig on your server and look for your machine's ip address.</p>
-	<p>You should look for something like this next to eth0, eth1, depending on your 
-	particular setup:</p>
-	<p>eth0</p>
-	<p>inet addr: 192.168.1.100. This is your ip adress</p>
-	<p>Go to your client computer and launch a terminal window or putty(windows).</p>
-	<p>Type in the ip adress of your server in terminal:</p>
-	<p>ssh mike@192.168.1.100</p>
-	<p>Similar execution in putty.</p>
+	<p>a) Start by typing ifconfig on your server and look for your server's ip address.</p>
+	<pre>
+		<code>ifconfig</code>
+	</pre>
+	<p>Results ...</p>
+	<pre>
+<code>
+ eth0      Link encap:Ethernet  HWaddr 00:0F:20:CF:8B:42
+#ip addr-> inet addr:217.149.127.10  Bcast:217.149.127.63  Mask:255.255.255.192 
+           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+           RX packets:2472694671 errors:1 dropped:0 overruns:0 frame:0
+           TX packets:44641779 errors:0 dropped:0 overruns:0 carrier:0
+           collisions:0 txqueuelen:1000
+           RX bytes:1761467179 (1679.7 Mb)  TX bytes:2870928587 (2737.9 Mb)
+           Interrupt:28
+</code>
+	</pre>
+	<p>b) Go to your client computer and launch a terminal window or putty(windows).</p>
+	<p>c) Type in the username and ip adress of your server in a terminal window:</p>
+	<pre>
+	<code>ssh john@217.149.127.10 -p 22</code>
+	</pre>
 	<p>All done! You should be able to connect to your server via ssh.</p>
+	<p>Note! Connecting with putty is easy. ip address enter 192.168.1.15. Port number is 22(depending if you edited the sshd_config file.)</p>
 	
+	<h2>Step 5: Set a static ip for your server.</h2>
+	<p>According to Wikipedia: <a href="http://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">
+	The Dynamic Host Configuration Protocol (DHCP)</a> is a standardized network protocol
+	used on Internet Protocol (IP) networks for dynamically distributing network configuration
+	parameters, such as IP addresses for interfaces and services. With DHCP, computers request
+	IP addresses and networking parameters automatically from a DHCP server,
+	reducing the need for a network administrator or a user to configure
+	these settings manually.</p>
+	<p>Lets set the ip address of your server to a static ip address.</p>
+	<p>a) Connect to your server from another computer via ssh. </p>
+	<p>b) Run the command bellow to view the interfaces file.</p>
+	<pre>
+	<code>sudo nano /etc/network/interfaces</code>
+	</pre>
+	<p>c) find this:</p>
+	<pre>
+	<code>iface eth0 inet dhcp</code>
+	</pre>
+	<p>d) change it to this:</p>
+	<pre>
+<code>
+auto eth0
+iface eth0 inet static
+	address 10.253.0.50   # Choose your static ip address. 
+	netmask 255.255.255.0 # This is usually the same everywhere.
+	network 10.253.0.0	  # Also your router's ip address.
+	gateway 10.253.0.1    # This is your router's ip address.
+	dns-nameservers 8.8.8.8
+</code>
+	</pre>
+	<p></p>
+	<p>Save your changes using ctrl + o</p>
+	<p>e) Restart the network:</p>
+	<pre>
+	<code>sudo ifdown eth0 && sudo ifup eth0</code>
+	</pre>
+	<p> All done!</p>
+	
+	<h2>Step 6: Install apache web server.</h2>
+	<p>Apache is a really common web server. More on this on: <a href="https://help.ubuntu.com/lts/serverguide/httpd.html">HTTPD - Apache 2 Web Server</a></p>
+	<p>a) Install apache 2 web server:</p>
+	<pre>
+	<code>sudo apt-get install apache2</code>
+	</pre>
+	<p>b) Test the installation by typing in your server's ip address in a web browser.</p>
+	<p> It works! All done! More on this on: <a href="https://help.ubuntu.com/lts/serverguide/httpd.html">HTTPD - Apache 2 Web Server</a></p>
+	
+	<h2>Step 7: Enable port forwarding in your router.</h2>
+	<p>According to Wikipedia: In computer networking, <a href="http://en.wikipedia.org/wiki/Port_forwarding">port forwarding</a> or port mapping is an application of network address
+	translation (NAT) that redirects a communication request from one address and port number combination
+	to another while the packets are traversing a network gateway, such as a router or firewall. </p>
+	<p>a) Find your router's ip address/ default Gateway.</p>
+	<pre>
+	<code>netstat -rn</code>
+	</pre>
+	<p>Results ...</p>
+	<pre>
+	<code>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+0.0.0.0  Here-> 10.253.0.1     0.0.0.0         UG        0 0          0 eth0
+10.1.10.0       0.0.0.0         255.255.255.0   U         0 0          0 eth2
+10.253.0.0      0.0.0.0         255.255.255.0   U         0 0          0 eth1
+	</code>
+	</pre>
+	<p>b) Type in your router's ip address in any browser in your local network and enter your username and password.
+	If you have not setup your username and password, look up your router's default username and password or call
+	your internet service provider for help.</p>
+	<p>c) enable port forwarding Search for enabling port forwarding in a search engine depending on your router's make and
+	model</p>
+	<p>Step 7 is more involved because you have to learn how to setup port-forwarding on your particular router.</p>
 </div>
 
+	
+	
 <!-- END content -->
 
 <?php  include('includes/php/menu.php'); ?>
